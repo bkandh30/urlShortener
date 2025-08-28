@@ -1,0 +1,29 @@
+{
+  "name": "url-shortener-monorepo",
+  "version": "1.0.0",
+  "description": "",
+  "private": "true",
+  "workspaces": [
+    "backend",
+    "frontend",
+    "common"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "build:common": "npm run build --workspace=common",
+    "build:all": "npm run build --workspace=common && npm run build --workspace=backend && npm run build --workspace=frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bkandh30/urlShortener.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/bkandh30/urlShortener/issues"
+  },
+  "homepage": "https://github.com/bkandh30/urlShortener#readme"
+}
