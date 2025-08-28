@@ -10,4 +10,5 @@ const app = createApp();
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
     console.log(`Health check: http://localhost:${PORT}/api/healthz`);
+    console.log(`Database connection check: http://localhost:${PORT}/api/db-check`);
 })
