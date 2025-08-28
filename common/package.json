@@ -1,6 +1,9 @@
 {
   "name": "@bkandh30/common-url-shortener",
   "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Common utilities and types for URL shortener",
   "main": "dist/index.js",
   "scripts": {
