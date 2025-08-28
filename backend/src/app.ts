@@ -15,6 +15,10 @@ export function createApp() {
     app.use(express.json());
     app.use(morgan('dev'));
 
+    app.get('/api/healthz', (req, res) => {
+        res.json({ status: 'ok' });
+    });
+
     app.use(errorHandler);
 
     return app;
