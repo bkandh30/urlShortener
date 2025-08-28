@@ -1,0 +1,27 @@
+{
+  "name": "@bkandh30/common-url-shortener",
+  "version": "1.0.0",
+  "description": "Common utilities and types for URL shortener",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "types": "dist/index.d.ts",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "zod": "^4.1.4"
+  }
+}
