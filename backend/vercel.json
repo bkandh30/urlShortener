@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "functions": {
+    "api/index.ts": {
+      "runtime": "@vercel/node@20"
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.ts"
+    },
+    {
+      "src": "/healthz",
+      "dest": "/api/index.ts"
+    },
+    {
+      "src": "/([A-Za-z0-9_-]{5,12})",
+      "dest": "/api/index.ts"
+    }
+  ]
+}
