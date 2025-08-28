@@ -16,8 +16,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
+    "@bkandh30/common-url-shortener": "^1.0.0",
     "@prisma/client": "^6.15.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
