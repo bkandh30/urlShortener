@@ -1,0 +1,6 @@
+{
+  "watch": ["src", "prisma/schema.prisma"],
+  "ext": "ts,prisma",
+  "ignore": ["src/**/*.spec.ts", "src/generated/prisma"],
+  "exec": "prisma generate && tsx src/index.ts"
+}
