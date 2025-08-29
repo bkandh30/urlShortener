@@ -87,5 +87,40 @@ router.post('/links', linkCreationLimiter, asyncHandler(async (req: Request, res
     });
 }));
 
+router.get('/links/:shortId', asyncHandler(async (req: Request, res: Response) => {
+    const { shortId } = req.params;
+
+    if (!shortId) {
+        return res.status(404).json({
+            error: {
+                code: ERROR_CODES.NOT_FOUND,
+                message: 'Link not found'
+            }
+        });
+    }
+
+    const link = await prisma.link.findUnique({
+        where: { shortId }
+    });
+
+    if (!link) {
+        return res.status(404).json({
+            error: {
+                code: ERROR_CODES.NOT_FOUND,
+                message: 'Link not found'
+            }
+        });
+    }
+
+    res.json({
+        shortId: link.shortId,
+        longUrl: link.longUrl,
+        clicks: link.clicks,
+        createdAt: link.createdAt.toISOString(),
+        lastAccess: link.lastAccess?.toISOString() || null,
+        expiresAt: link.expiresAt.toISOString(),
+        status: new Date() > link.expiresAt ? 'expired' : 'active'
+    });
+}));
 
 export default router;
