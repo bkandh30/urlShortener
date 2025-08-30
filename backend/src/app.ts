@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import { errorHandler } from './middlewares/error.js';
 import linkRoutes from './routes/links.js';
+import redirectRoutes from './routes/redirect.js';
 
 export function createApp() {
     const app = express();
@@ -31,6 +32,8 @@ export function createApp() {
     }
 
     app.use('/api', linkRoutes);
+
+    app.use('/', redirectRoutes);
 
     app.use(errorHandler);
 
