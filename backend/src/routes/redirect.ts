@@ -102,7 +102,7 @@ router.get('/:shortId', asyncHandler(async (req: Request, res: Response) => {
     const userAgent = Array.isArray(rawUserAgent) ? rawUserAgent[0] : rawUserAgent;
     const referer = Array.isArray(rawReferer) ? rawReferer[0] : rawReferer;
 
-    prisma.link.update({
+    await prisma.link.update({
         where: { id: link.id },
         data: {
             clicks: { increment: 1 },
