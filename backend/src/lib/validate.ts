@@ -30,7 +30,7 @@ export function normalizeAndValidateUrl(urlString: string): string {
 
     const ipPattern = /^(\d{1,3}\.){3}\d{1,3}$/;
     if (ipPattern.test(hostname)) {
-        const isPrivate = PRIVATE_IP_RANGES.some(range => range.test(hostname));
+        const isPrivate = PRIVATE_IP_RANGES.some((range: RegExp) => range.test(hostname));
         if (isPrivate) {
             throw new ValidationError('URL points to a private IP address');
         }
