@@ -1,10 +1,11 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import UrlForm from "@/components/UrlForm";
 import LinkTable from "@/components/LinkTable";
-import { Link2 } from "lucide-react";
 import { LocalLink } from "@/lib/api";
-import { useState, useEffect } from "react";
 
 const STORAGE_KEY = "url-shortener-links";
 
@@ -13,7 +14,6 @@ export default function Home() {
 
 	useEffect(() => {
 		const stored = localStorage.getItem(STORAGE_KEY);
-
 		if (stored) {
 			try {
 				const parsedLinks = JSON.parse(stored);
@@ -35,37 +35,39 @@ export default function Home() {
 	};
 
 	return (
-		<div className="min-h-screen bg-gray-50">
-			<div className="max-w-6xl mx-auto px-4 py-8">
-				{/* Header */}
-				<div className="text-center mb-12">
-					<div className="flex items-center justify-center gap-2 mb-4">
-						<Link2 className="w-8 h-8 text-blue-600" />
-						<h1 className="text-3xl font-bold text-gray-900">URL Shortener</h1>
-					</div>
-					<p className="text-gray-600">
-						Create short, shareable links with QR codes and analytics
-					</p>
-				</div>
+		<div className="min-h-screen bg-background flex flex-col">
+			{/* Header Section */}
+			<Header />
 
-				{/* Form Section */}
-				<div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-					<UrlForm onLinkCreated={handleLinkCreated} />
-				</div>
-
-				{/* Links Table Section */}
-				<div className="bg-white rounded-lg shadow-sm">
-					<div className="p-6 border-b border-gray-200">
-						<h2 className="text-xl font-semibold text-gray-900">Your Links</h2>
-						<p className="text-sm text-gray-600 mt-1">
-							Links are stored locally in your browser
+			<main className="flex-1">
+				{/* Hero Section */}
+				<section className="py-20 px-4 bg-gradient-to-b from-blue-50/50 to-transparent">
+					<div className="container mx-auto text-center">
+						<h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
+							Shorten Your URLs
+						</h1>
+						<p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto">
+							Create beautiful, short links with QR codes.
+							<br className="hidden md:block" />
+							Clean, fast, and professional URL shortening.
 						</p>
+
+						<div className="max-w-4xl mx-auto">
+							<UrlForm onLinkCreated={handleLinkCreated} />
+						</div>
 					</div>
-					<div className="p-6">
+				</section>
+
+				{/* Links Section */}
+				<section className="py-12 px-4">
+					<div className="container mx-auto max-w-6xl">
 						<LinkTable links={links} />
 					</div>
-				</div>
-			</div>
+				</section>
+			</main>
+
+			{/* Footer Section */}
+			<Footer />
 		</div>
 	);
 }
