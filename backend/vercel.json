@@ -2,7 +2,7 @@
   "version": 2,
   "functions": {
     "api/index.ts": {
-      "runtime": "@vercel/node@24.x"
+      "runtime": "nodejs24.x"
     }
   },
   "routes": [
