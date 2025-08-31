@@ -1,25 +1,31 @@
 {
   "name": "@bkandh30/common-url-shortener",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "publishConfig": {
     "access": "public"
   },
   "description": "Common utilities and types for URL shortener",
-  "main": "dist/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "prepublishOnly": "npm run build"
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
   "files": [
     "dist"
   ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
-  "types": "dist/index.d.ts",
   "devDependencies": {
     "@types/node": "^24.3.0",
     "typescript": "^5.9.2"
