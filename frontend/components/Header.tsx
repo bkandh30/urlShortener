@@ -9,7 +9,7 @@ export default function Header() {
 			<div className="container mx-auto px-4 py-6">
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-3">
-						<div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-soft">
+						<div className="w-10 h-10 rounded-xl bg-blue-500 flex items-center justify-center shadow-soft">
 							<Link2 className="w-6 h-6 text-white" />
 						</div>
 						<h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
