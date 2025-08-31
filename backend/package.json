@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "URL Shortener Backend API",
   "main": "dist/index.js",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
