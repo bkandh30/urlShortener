@@ -19,7 +19,7 @@ export default function Header() {
 
 					<Link
 						href="/"
-						className="text-muted-foreground hover:text-foreground transition-all duration-200 font-medium"
+						className="text-muted-foreground hover:text-blue-600 transition-all duration-200 font-medium"
 					>
 						Home
 					</Link>
