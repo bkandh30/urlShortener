@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { QrCode, ExternalLink, TrendingUp } from "lucide-react";
+import { QrCode, ExternalLink, TrendingUp, Calendar } from "lucide-react";
 import { getStats, LocalLink, getShortUrl } from "@/lib/api";
 import { StatsResponse } from "@bkandh30/common-url-shortener";
-import { formatDate, getTimeUntilExpiry, cn } from "@/lib/utils";
-import CopyButton from "./CopyButton";
+import { formatDate } from "@/lib/utils";
 import QrModal from "./QrModal";
+import CopyButton from "./CopyButton"; // Re-added CopyButton component
 
 interface LinkTableProps {
 	links: LocalLink[];
@@ -27,7 +27,6 @@ export default function LinkTable({ links }: LinkTableProps) {
 		links.forEach(async (link) => {
 			try {
 				const stats = await getStats(link.shortId);
-
 				setLinksWithStats((prev) =>
 					prev.map((l) =>
 						l.shortId === link.shortId ? { ...l, stats, loading: false } : l,
@@ -46,133 +45,102 @@ export default function LinkTable({ links }: LinkTableProps) {
 
 	if (links.length === 0) {
 		return (
-			<div className="text-center py-12 text-gray-500">
-				<p className="text-lg mb-2">No links created yet</p>
-				<p className="text-sm">Create your first short link above</p>
+			<div className="text-center py-16">
+				<div className="w-24 h-24 mx-auto mb-6 bg-muted rounded-2xl flex items-center justify-center">
+					<ExternalLink className="w-12 h-12 text-muted-foreground" />
+				</div>
+				<h3 className="text-xl font-semibold mb-2">No links yet</h3>
+				<p className="text-muted-foreground">
+					Paste a URL above to get started with your first shortened link
+				</p>
 			</div>
 		);
 	}
 
 	return (
 		<>
-			<div className="overflow-x-auto">
-				<table className="w-full">
-					<thead>
-						<tr className="border-b border-gray-200">
-							<th className="text-left py-3 px-4 font-medium text-gray-700">
-								Original URL
-							</th>
-							<th className="text-left py-3 px-4 font-medium text-gray-700">
-								Short URL
-							</th>
-							<th className="text-center py-3 px-4 font-medium text-gray-700">
-								Clicks
-							</th>
-							<th className="text-left py-3 px-4 font-medium text-gray-700">
-								Created
-							</th>
-							<th className="text-left py-3 px-4 font-medium text-gray-700">
-								Status
-							</th>
-							<th className="text-center py-3 px-4 font-medium text-gray-700">
-								Actions
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						{linksWithStats.map((link) => {
-							const status =
-								link.stats?.status ||
-								(new Date(link.expiresAt) < new Date() ? "expired" : "active");
-							const isExpired = status === "expired";
+			<div className="space-y-4">
+				<h2 className="text-2xl font-bold mb-6">Your Links</h2>
 
-							return (
-								<tr
-									key={link.shortId}
-									className="border-b border-gray-100 hover:bg-gray-50"
-								>
-									<td className="py-3 px-4">
-										<div className="max-w-xs truncate text-sm">
+				<div className="space-y-4">
+					{linksWithStats.map((link) => {
+						const isExpired = new Date(link.expiresAt) < new Date();
+
+						return (
+							<div
+								key={link.shortId}
+								className={`p-6 bg-card rounded-2xl border transition-all duration-200 hover:shadow-medium ${
+									isExpired && "border-destructive/50 bg-destructive/5"
+								}`}
+							>
+								<div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+									<div className="flex-1 space-y-3">
+										<div>
+											<div className="flex items-center gap-2 mb-1">
+												<p className="text-sm text-muted-foreground">
+													Original URL
+												</p>
+												{isExpired && (
+													<span className="px-2 py-0.5 bg-destructive text-destructive-foreground text-xs rounded-full">
+														Expired
+													</span>
+												)}
+											</div>
 											<a
 												href={link.longUrl}
 												target="_blank"
 												rel="noopener noreferrer"
-												className="text-gray-600 hover:text-gray-900 hover:underline"
+												className="text-foreground hover:text-primary transition-colors break-all"
 												title={link.longUrl}
 											>
-												{link.longUrl}
+												{link.longUrl.length > 60
+													? link.longUrl.substring(0, 60) + "..."
+													: link.longUrl}
 											</a>
 										</div>
-									</td>
-									<td className="py-3 px-4">
-										<div className="flex items-center gap-1">
-											<a
-												href={getShortUrl(link.shortId)}
-												target="_blank"
-												rel="noopener noreferrer"
-												className="text-blue-600 hover:underline text-sm font-mono"
-											>
-												{link.shortId}
-											</a>
-											<CopyButton text={getShortUrl(link.shortId)} />
+
+										<div>
+											<p className="text-sm text-muted-foreground mb-1">
+												Short URL
+											</p>
+											<p className="font-mono text-primary font-medium">
+												{getShortUrl(link.shortId)}
+											</p>
 										</div>
-									</td>
-									<td className="py-3 px-4 text-center">
-										{link.loading ? (
-											<span className="text-gray-400">...</span>
-										) : (
-											<div className="flex items-center justify-center gap-1">
-												<TrendingUp className="w-4 h-4 text-gray-400" />
-												<span className="font-medium">
-													{link.stats?.clicks || 0}
-												</span>
+									</div>
+
+									<div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+										<div className="flex items-center gap-6 text-sm text-muted-foreground">
+											<div className="flex items-center gap-1" title="Clicks">
+												<TrendingUp className="w-4 h-4" />
+												<span>{link.stats?.clicks || 0} clicks</span>
 											</div>
-										)}
-									</td>
-									<td className="py-3 px-4">
-										<div className="text-sm text-gray-600">
-											{formatDate(link.createdAt)}
+											<div
+												className="flex items-center gap-1"
+												title={`Created on ${formatDate(link.createdAt)}`}
+											>
+												<Calendar className="w-4 h-4" />
+												<span>{formatDate(link.createdAt)}</span>
+											</div>
 										</div>
-									</td>
-									<td className="py-3 px-4">
-										<span
-											className={cn(
-												"inline-flex items-center px-2 py-1 rounded-full text-xs font-medium",
-												isExpired
-													? "bg-red-100 text-red-700"
-													: "bg-green-100 text-green-700",
-											)}
-										>
-											{isExpired
-												? "Expired"
-												: getTimeUntilExpiry(link.expiresAt)}
-										</span>
-									</td>
-									<td className="py-3 px-4">
-										<div className="flex items-center justify-center gap-2">
+
+										<div className="flex items-center gap-2">
+											{/* Replaced inline button with CopyButton component */}
+											<CopyButton text={getShortUrl(link.shortId)} />
 											<button
 												onClick={() => setSelectedQr(link.shortId)}
-												className="p-1.5 hover:bg-gray-100 rounded transition-colors"
+												className="p-2 hover:bg-secondary rounded-lg transition-colors"
 												title="View QR Code"
 											>
-												<QrCode className="w-4 h-4 text-gray-600" />
+												<QrCode className="w-4 h-4" />
 											</button>
-											<a
-												href={getShortUrl(link.shortId)}
-												target="_blank"
-												rel="noopener noreferrer"
-												className="p-1.5 hover:bg-gray-100 rounded transition-colors"
-												title="Open link"
-											>
-												<ExternalLink className="w-4 h-4 text-gray-600" />
-											</a>
 										</div>
-									</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
+									</div>
+								</div>
+							</div>
+						);
+					})}
+				</div>
 			</div>
 
 			{selectedQr && (
