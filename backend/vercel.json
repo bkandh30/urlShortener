@@ -1,17 +1,23 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "dist/index.js",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/index.ts"
+      "dest": "dist/index.js"
     },
     {
       "src": "/healthz",
-      "dest": "/api/index.ts"
+      "dest": "dist/index.js"
     },
     {
       "src": "/([A-Za-z0-9_-]{5,12})",
-      "dest": "/api/index.ts"
+      "dest": "dist/index.js"
     }
   ]
 }
