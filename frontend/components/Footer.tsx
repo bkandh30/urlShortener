@@ -9,7 +9,7 @@ export default function Footer() {
 				<div className="text-center">
 					<p className="text-sm text-muted-foreground">
 						© {currentYear} Hash.ly. Built with Next.js, Express, TypeScript
-						and PostgreSQL.
+						and TailwindCSS.
 					</p>
 				</div>
 			</div>
