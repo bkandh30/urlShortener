@@ -6,7 +6,7 @@ import { getStats, LocalLink, getShortUrl } from "@/lib/api";
 import { StatsResponse } from "@bkandh30/common-url-shortener";
 import { formatDate } from "@/lib/utils";
 import QrModal from "./QrModal";
-import CopyButton from "./CopyButton"; // Re-added CopyButton component
+import CopyButton from "./CopyButton";
 
 interface LinkTableProps {
 	links: LocalLink[];
