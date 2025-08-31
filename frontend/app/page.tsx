@@ -43,13 +43,13 @@ export default function Home() {
 				{/* Hero Section */}
 				<section className="py-20 px-4 bg-gradient-to-b from-blue-50/50 to-transparent">
 					<div className="container mx-auto text-center">
-						<h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
-							Shorten Your URLs
+						<h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground mb-6">
+							<span>Shorten Your URLs</span>
+							<span className="block text-blue-500">Share with Style</span>
 						</h1>
-						<p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto">
-							Create beautiful, short links with QR codes.
-							<br className="hidden md:block" />
-							Clean, fast, and professional URL shortening.
+						<p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto">
+							Transform long, unwieldy URLs into clean, shareable links. Track
+							clicks, generate QR codes, and manage all your links in one place.
 						</p>
 
 						<div className="max-w-4xl mx-auto">
