@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { createLink, LocalLink } from "@/lib/api";
 import { formatDate, getTimeUntilExpiry } from "@/lib/utils";
+import { Link2 } from "lucide-react";
 
 interface UrlFormProps {
 	onLinkCreated: (link: LocalLink) => void;
@@ -45,66 +46,53 @@ export default function UrlForm({ onLinkCreated }: UrlFormProps) {
 	};
 
 	return (
-		<div className="w-full max-w-2xl mx-auto">
-			<form onSubmit={handleSubmit} className="space-y-4">
-				<div>
-					<label
-						htmlFor="url"
-						className="block text-sm font-medium text-gray-700 mb-2"
+		<div className="w-full space-y-8">
+			<form onSubmit={handleSubmit} className="space-y-6">
+				<div className="flex flex-col sm:flex-row gap-4">
+					<input
+						type="url"
+						placeholder="https://example.com/very-long-url"
+						value={url}
+						onChange={(e) => setUrl(e.target.value)}
+						className="flex-1 h-14 px-6 text-lg border-2 rounded-2xl bg-white focus:border-primary focus:outline-none transition-all duration-200"
+						disabled={loading}
+					/>
+					<button
+						type="submit"
+						disabled={loading || !url.trim()}
+						className="h-14 px-8 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-2xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
 					>
-						Enter your long URL
-					</label>
-					<div className="flex gap-2">
-						<input
-							id="url"
-							type="url"
-							value={url}
-							onChange={(e) => setUrl(e.target.value)}
-							placeholder="https://example.com/very-long-url"
-							className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-							disabled={loading}
-						/>
-						<button
-							type="submit"
-							disabled={loading}
-							className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-						>
-							{loading ? "Creating..." : "Shorten"}
-						</button>
-					</div>
+						<Link2 className="w-5 h-5" />
+						{loading ? "Creating..." : "Shorten"}
+					</button>
 				</div>
+			</form>
 
-				{error && (
-					<div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
-						{error}
-					</div>
-				)}
+			{error && (
+				<div className="p-4 bg-red-50 border border-red-200 rounded-2xl text-red-700">
+					{error}
+				</div>
+			)}
 
-				{success && (
-					<div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-						<p className="text-green-700 font-medium mb-2">
-							Link created successfully!
-						</p>
-						<div className="space-y-2 text-sm">
-							<div className="flex items-center gap-2">
-								<span className="text-gray-600">Short URL:</span>
-								<a
-									href={success.shortUrl}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-blue-600 hover:underline font-mono"
-								>
-									{success.shortUrl}
-								</a>
-							</div>
-							<div className="text-gray-600">
-								Expires: {formatDate(success.expiresAt)} (
-								{getTimeUntilExpiry(success.expiresAt)})
-							</div>
+			{success && (
+				<div className="p-6 bg-white rounded-2xl shadow-medium border">
+					<h3 className="text-lg font-semibold mb-4">
+						Link created successfully!
+					</h3>
+					<div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+						<div className="flex-1">
+							<p className="text-sm text-muted-foreground mb-1">Short URL:</p>
+							<p className="text-lg font-mono text-primary break-all">
+								{success.shortUrl}
+							</p>
 						</div>
 					</div>
-				)}
-			</form>
+					<div className="mt-4 text-sm text-muted-foreground">
+						Expires: {formatDate(success.expiresAt)} (
+						{getTimeUntilExpiry(success.expiresAt)})
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }
