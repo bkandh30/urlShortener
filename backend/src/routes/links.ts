@@ -6,6 +6,7 @@ import { makeShortId } from "../lib/id.js";
 import { normalizeAndValidateUrl, ValidationError } from "../lib/validate.js";
 // import { createLinkSchema, ERROR_CODES, DEFAULTS } from "@bkandh30/common-url-shortener";
 import { makeQrPng, makeQrSvg } from "../lib/qr.js";
+import { linkCreationLimiter } from "../lib/rateLimit.js";
 
 const router = Router();
 
@@ -24,7 +25,7 @@ router.get('/db-check', asyncHandler(async (req: Request, res: Response) => {
     });
 }));
 
-router.post('/links', require("../lib/rateLimit.js").linkCreationLimiter, asyncHandler(async (req: Request, res: Response) => {
+router.post('/links', linkCreationLimiter, asyncHandler(async (req: Request, res: Response) =>  {
     const { createLinkSchema, ERROR_CODES, DEFAULTS } = await import('@bkandh30/common-url-shortener');
     
     const validationResult = createLinkSchema.safeParse(req.body);
