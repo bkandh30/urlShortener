@@ -1,5 +1,6 @@
 import rateLimit from "express-rate-limit";
 import { ERROR_CODES } from "@bkandh30/common-url-shortener";
+import type { Request, Response } from 'express';
 
 interface RateLimitConfig {
     windowMs ?: number;
@@ -23,7 +24,7 @@ export function createRateLimiter(config: RateLimitConfig = {}) {
         skipSuccessfulRequests,
         standardHeaders: true,
         legacyHeaders: false,
-        handler: (req, res) => {
+        handler: (req: Request, res: Response) => {
             res.status(429).json({
                 error: {
                     code: ERROR_CODES.RATE_LIMITED,
@@ -32,7 +33,7 @@ export function createRateLimiter(config: RateLimitConfig = {}) {
                 retryAfter: Math.ceil(windowMs / 1000),
             });
         },
-        keyGenerator: (req) => {
+        keyGenerator: (req: Request) => {
             return req.headers['x-forwarded-for']?.toString().split(',')[0]?.trim() ||
                     req.socket.remoteAddress ||
                     'unknown';
