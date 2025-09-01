@@ -93,6 +93,8 @@ SITE_BASE_URL=http://localhost:8080
 PORT=8080
 ```
 
+Note: Use Neondb or Aiven for PostgreSQL database instance.
+
 **Frontend** (`frontend/.env.local`):
 
 ```env
