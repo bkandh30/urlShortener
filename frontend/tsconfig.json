@@ -27,6 +27,7 @@
       "@/*": [
         "./*"
       ],
+      // Made changes for monorepo
       "@bkandh30/common-url-shortener": [
         "./node_modules/@bkandh30/common-url-shortener/dist/index.d.ts"
       ]
