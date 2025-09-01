@@ -20,7 +20,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "@bkandh30/common-url-shortener": "^1.0.3",
     "@prisma/client": "^6.15.0",
