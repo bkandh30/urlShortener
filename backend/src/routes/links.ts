@@ -5,7 +5,7 @@ import { asyncHandler } from '../middlewares/error.js';
 import { makeShortId } from "../lib/id.js";
 import { linkCreationLimiter } from "../lib/rateLimit.js";
 import { normalizeAndValidateUrl, ValidationError } from "../lib/validate.js";
-import { createLinkSchema, ERROR_CODES, DEFAULTS } from "@bkandh30/common-url-shortener";
+// import { createLinkSchema, ERROR_CODES, DEFAULTS } from "@bkandh30/common-url-shortener";
 import { makeQrPng, makeQrSvg } from "../lib/qr.js";
 
 const router = Router();
@@ -26,6 +26,8 @@ router.get('/db-check', asyncHandler(async (req: Request, res: Response) => {
 }));
 
 router.post('/links', linkCreationLimiter, asyncHandler(async (req: Request, res: Response) => {
+    const { createLinkSchema, ERROR_CODES, DEFAULTS } = await import('@bkandh30/common-url-shortener');
+    
     const validationResult = createLinkSchema.safeParse(req.body);
 
     if (!validationResult.success) {
@@ -41,7 +43,7 @@ router.post('/links', linkCreationLimiter, asyncHandler(async (req: Request, res
     
     let normalizedUrl: string;
     try {
-        normalizedUrl = normalizeAndValidateUrl(longUrl);
+        normalizedUrl = await normalizeAndValidateUrl(longUrl);
     } catch (error) {
         if (error instanceof ValidationError) {
             return res.status(400).json({
@@ -89,6 +91,7 @@ router.post('/links', linkCreationLimiter, asyncHandler(async (req: Request, res
 }));
 
 router.get('/links/:shortId', asyncHandler(async (req: Request, res: Response) => {
+    const { ERROR_CODES } = await import('@bkandh30/common-url-shortener');
     const { shortId } = req.params;
 
     if (!shortId) {
@@ -125,6 +128,7 @@ router.get('/links/:shortId', asyncHandler(async (req: Request, res: Response) =
 }));
 
 router.get('/links/:shortId/qr', asyncHandler(async (req: Request, res: Response) => {
+    const { ERROR_CODES } = await import('@bkandh30/common-url-shortener');
     const { shortId } = req.params;
 
     if (!shortId) {

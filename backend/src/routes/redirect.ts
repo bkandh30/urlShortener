@@ -3,11 +3,13 @@ import { Router } from "express";
 import type { Request, Response } from "express";
 import { asyncHandler } from "../middlewares/error.js";
 import { hashIP, getClientIP } from "../lib/hash.js";
-import { DEFAULTS } from "@bkandh30/common-url-shortener";
+// import { DEFAULTS } from "@bkandh30/common-url-shortener";
 
 const router = Router();
 
 router.get('/:shortId', asyncHandler(async (req: Request, res: Response) => {
+    const { DEFAULTS } = await import('@bkandh30/common-url-shortener');
+    
     const { shortId } = req.params;
 
     if (!shortId) {
