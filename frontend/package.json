@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@bkandh30/common-url-shortener": "^1.0.0",
+    "@bkandh30/common-url-shortener": "^1.0.4",
     "axios": "^1.11.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.542.0",
