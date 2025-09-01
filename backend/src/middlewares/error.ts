@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import { ERROR_CODES } from '@bkandh30/common-url-shortener';
+// import { ERROR_CODES } from '@bkandh30/common-url-shortener';
 import { ZodError } from 'zod';
 import { ValidationError } from '../lib/validate.js';
 
@@ -8,12 +8,13 @@ interface AppError extends Error {
     code?: string;
 }
 
-export function errorHandler(
+export async function errorHandler(
     err: AppError | Error,
     _req: Request,
     res: Response,
     _next: NextFunction
 ) {
+    const { ERROR_CODES } = await import('@bkandh30/common-url-shortener');
     let statusCode = 500;
     let code = ERROR_CODES.INTERNAL;
     let message = 'Internal server error';
