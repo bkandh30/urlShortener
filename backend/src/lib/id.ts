@@ -1,6 +1,3 @@
-import { customAlphabet } from "nanoid";
-// import { DEFAULTS } from "@bkandh30/common-url-shortener";
-
 const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
 export async function makeShortId(
@@ -8,7 +5,8 @@ export async function makeShortId(
     maxRetries?: number
 ): Promise<string> {
     const { DEFAULTS } = await import('@bkandh30/common-url-shortener');
-    
+    const { customAlphabet } = await import('nanoid');
+
     const effectiveMaxRetries = maxRetries ?? DEFAULTS.MAX_COLLISION_RETRIES;
     const generateId = customAlphabet(alphabet, DEFAULTS.SHORT_ID_LENGTH);
 
