@@ -1,5 +1,5 @@
 import { URL } from "url";
-import { BLOCKED_HOSTS, PRIVATE_IP_RANGES } from "@bkandh30/common-url-shortener";
+//import { BLOCKED_HOSTS, PRIVATE_IP_RANGES } from "@bkandh30/common-url-shortener";
 
 export class ValidationError extends Error {
     constructor(message: string, public code: string = 'INVALID_URL') {
@@ -8,7 +8,9 @@ export class ValidationError extends Error {
     }
 };
 
-export function normalizeAndValidateUrl(urlString: string): string {
+export async function normalizeAndValidateUrl(urlString: string): Promise<string> {
+    const { BLOCKED_HOSTS, PRIVATE_IP_RANGES } = await import('@bkandh30/common-url-shortener');
+
     urlString = urlString.trim();
 
     let url: URL;
