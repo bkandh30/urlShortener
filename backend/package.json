@@ -21,7 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@bkandh30/common-url-shortener": "^1.0.5",
+    "@bkandh30/common-url-shortener": "^1.0.6",
     "@prisma/client": "^6.15.0",
     "@prisma/extension-accelerate": "^2.0.2",
     "cors": "^2.8.5",
