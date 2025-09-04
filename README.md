@@ -1,3 +1,11 @@
+# DEPRECATED PROJECT
+
+## This project is no longer maintained due to deployment issues.  
+Please use the actively maintained version here instead: [hash.ly](https://github.com/bkandh30/hash.ly)
+
+You can view the website over here: [https://hash-ly.vercel.app/](https://hash-ly.vercel.app/)
+---
+
 # Hash.ly - Modern URL Shortener
 
 A production-ready URL shortener with QR code generation, analytics, and automatic expiration. Built with Next.js, Node.js, Express, TypeScript and TailwindCSS
